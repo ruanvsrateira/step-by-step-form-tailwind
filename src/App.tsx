@@ -1,4 +1,3 @@
-import "./App.css";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { object, string } from "yup";
@@ -58,7 +57,7 @@ function App() {
   });
 
   return (
-    <main>
+    <main className="bg-red-200">
       <form onSubmit={formik.handleSubmit}>
         <div>
           {currentStep == 0 ? (
