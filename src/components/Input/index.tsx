@@ -25,11 +25,11 @@ export const Input = ({ error, ...props }: InputProps) => {
   return (
     <div className="w-full">
       <input
-        className="w-full border-2 h-12 px-2 rounded-md border-purple-400 placeholder:text-purple-400 hover:border-purple-600 transition-colors text-gray-600"
+        className="w-full border-2 h-12 px-2 rounded-md border-gray-400 placeholder:text-gray-400 hover:border-gray-500 transition-colors text-gray-600"
         {...props}
         value={props.value as string}
       />
-      {error && <span className="text-gray-600 italic">({error})</span>}
+      {error && <span className="text-red-500 ">{error}</span>}
     </div>
   );
 };
