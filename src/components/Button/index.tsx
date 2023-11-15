@@ -17,7 +17,7 @@ export const Button = ({
   if (variant == "purple") {
     return (
       <button
-        className="w-full h-12 flex items-center justify-center gap-2 px-2 rounded-md text-white placeholder:text-purple-400 bg-purple-400 hover:bg-purple-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+        className="w-full h-12 flex items-center justify-center gap-2 px-2 rounded-md text-white placeholder:text-purple-400 bg-purple-500  disabled:opacity-70 disabled:cursor-not-allowed"
         {...props}
       >
         {leftIcon && leftIcon} {text} {rightIcon && rightIcon}
@@ -28,7 +28,7 @@ export const Button = ({
   if (variant == "green") {
     return (
       <button
-        className="w-full h-12 flex items-center justify-center gap-2 px-2 rounded-md text-white placeholder:text-purple-400 bg-green-400 hover:bg-green-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+        className="w-full h-12 flex items-center justify-center gap-2 px-2 rounded-md text-white placeholder:text-purple-400 bg-green-400 disabled:opacity-70 disabled:cursor-not-allowed"
         {...props}
       >
         {leftIcon && leftIcon} {text} {rightIcon && rightIcon}
