@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { bool, object, ref, string } from "yup";
 import { GoArrowLeft, GoArrowRight, GoCheck } from "react-icons/go";
 
 import { Button } from "./components/Button";
@@ -10,43 +9,27 @@ import { Step0 } from "./sections/Step0";
 import { Step1 } from "./sections/Step1";
 import { Step2 } from "./sections/Step2";
 
+import { step0ValidationSchema } from "./schemas/step0";
+import { step1ValidationSchema } from "./schemas/step1";
+import { step2ValidationSchema } from "./schemas/step2";
+
 function App() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const steps = [
     {
       step: 0,
       title: "Configuração de E-mail",
-      status: "not finalized",
-      validationSchema: object({
-        email: string().email("E-mail Inválido").required("campo obrigatorio"),
-        confirmEmail: string()
-          .required("Campo obrigatório")
-          .oneOf([ref("email")], "E-mail não coincidem"),
-      }),
+      validationSchema: step0ValidationSchema,
     },
     {
       step: 1,
       title: "Configuração de senha",
-      status: "not finalized",
-      validationSchema: object({
-        password: string()
-          .min(4, "A senha deve ter mais de 4 caractéres")
-          .required("Campo obrigatório"),
-        confirmPassword: string()
-          .required("Campo obrigatório")
-          .oneOf([ref("password")], "As Senhas não se coincidem"),
-      }),
+      validationSchema: step1ValidationSchema,
     },
     {
       step: 2,
       title: "Termos de Privacidade",
-      status: "not finalized",
-      validationSchema: object({
-        acceptTerms: bool().oneOf(
-          [true],
-          "Para finalizar você deve aceitar os termos"
-        ),
-      }),
+      validationSchema: step2ValidationSchema,
     },
   ];
 
@@ -83,7 +66,6 @@ function App() {
         <div className="mb-10 flex justify-around gap-6">
           {steps.map((s) => (
             <StepIndicator
-              status={s.status as "finalized" | "not-finalized"}
               currentStep={currentStep}
               step={s.step}
               title={s.title}
