@@ -1,9 +1,11 @@
-import { useFormik } from "formik";
 import { useState } from "react";
+import { useFormik } from "formik";
 import { bool, object, ref, string } from "yup";
 import { GoArrowLeft, GoArrowRight, GoCheck } from "react-icons/go";
-import { Button } from "./Button";
+
+import { Button } from "./components/Button";
 import { StepIndicator } from "./components/StepIndicator";
+
 import { Step0 } from "./sections/Step0";
 import { Step1 } from "./sections/Step1";
 import { Step2 } from "./sections/Step2";
@@ -110,6 +112,7 @@ function App() {
                   rightIcon={<GoArrowRight size={22} />}
                   variant="purple"
                   type="submit"
+                  disabled={!formik.isValid}
                 />
               ) : (
                 <Button
@@ -117,6 +120,7 @@ function App() {
                   rightIcon={<GoCheck size={22} />}
                   variant="green"
                   type="submit"
+                  disabled={!formik.isValid}
                 />
               )}
             </div>
