@@ -62,7 +62,7 @@ function App() {
       password: "",
       confirmEmail: "",
       confirmPassword: "",
-      acceptTerms: true,
+      acceptTerms: false,
     },
     validationSchema: steps[currentStep].validationSchema,
     onSubmit: (values) => {

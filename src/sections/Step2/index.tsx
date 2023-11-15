@@ -19,7 +19,7 @@ export const Step2 = ({ formik }: Step2Props) => {
       error={formik.errors.acceptTerms}
       onChange={formik.handleChange}
       placeholder="Eu confirmo que li e aceito os termos"
-      value={formik.values.confirmPassword}
+      value={formik.values.acceptTerms}
     />
   );
 };

@@ -1,8 +1,9 @@
 import { InputHTMLAttributes } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value"> {
   name: string;
-  value: string;
+  value: string | boolean;
   error: string | undefined;
   placeholder: string;
   type: "input" | "checkbox";
@@ -13,8 +14,8 @@ export const Input = ({ error, ...props }: InputProps) => {
     return (
       <div className="mb-4">
         <div className="flex gap-2">
-          <input {...props} />
-          {props.placeholder}
+          <input {...props} checked={props.value as boolean} value={""} />
+          <p className="text-gray-600">{props.placeholder}</p>
         </div>
         {error && <span className="text-gray-600 italic">({error})</span>}
       </div>
@@ -26,6 +27,7 @@ export const Input = ({ error, ...props }: InputProps) => {
       <input
         className="w-full border-2 h-12 px-2 rounded-md border-purple-400 placeholder:text-purple-400 hover:border-purple-600 transition-colors text-gray-600"
         {...props}
+        value={props.value as string}
       />
       {error && <span className="text-gray-600 italic">({error})</span>}
     </div>
