@@ -12,9 +12,11 @@ import { Step2 } from "./sections/Step2";
 import { step0ValidationSchema } from "./schemas/step0";
 import { step1ValidationSchema } from "./schemas/step1";
 import { step2ValidationSchema } from "./schemas/step2";
+import { FinishedStep } from "./sections/FinishedStep";
 
 function App() {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const steps = [
     {
       step: 0,
@@ -50,64 +52,73 @@ function App() {
       acceptTerms: false,
     },
     validationSchema: steps[currentStep].validationSchema,
-    onSubmit: (values) => {
+    onSubmit: () => {
       if (currentStep == steps.length - 1) {
-        alert(JSON.stringify(values));
+        setFormSubmitted(true);
         return;
       }
       return handleNextStep();
     },
     validateOnChange: true,
   });
-
+  const mainStyles = `${
+    formSubmitted ? "bg-green-300" : "bg-purple-400"
+  } w-[100vw] h-[100vh] flex items-center justify-center transition-colors`;
   return (
-    <main className="bg-purple-400 w-[100vw] h-[100vh] flex items-center justify-center">
+    <main className={mainStyles}>
       <div className="min-w-[600px] p-10 bg-white rounded-md shadow-md">
-        <div className="mb-10 flex justify-around gap-6">
-          {steps.map((s) => (
-            <StepIndicator
-              currentStep={currentStep}
-              step={s.step}
-              title={s.title}
-            />
-          ))}
-        </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="flex flex-col items-center gap-2">
-            {currentStep == 0 ? <Step0 formik={formik} /> : null}
-            {currentStep == 1 ? <Step1 formik={formik} /> : null}
-            {currentStep == 2 ? <Step2 formik={formik} /> : null}
-            <div className="w-full flex flex-row gap-4 items-center">
-              {currentStep > 0 ? (
-                <Button
-                  text="Voltar"
-                  leftIcon={<GoArrowLeft size={22} />}
-                  variant="purple"
-                  type="button"
-                  onClick={handlePreviousStep}
+        {!formSubmitted ? (
+          <>
+            <div className="mb-10 flex justify-around gap-6">
+              {steps.map((s) => (
+                <StepIndicator
+                  key={s.title}
+                  currentStep={currentStep}
+                  step={s.step}
+                  title={s.title}
                 />
-              ) : null}
-
-              {currentStep !== steps.length - 1 ? (
-                <Button
-                  text="Próximo"
-                  rightIcon={<GoArrowRight size={22} />}
-                  variant="purple"
-                  type="submit"
-                  disabled={!formik.isValid}
-                />
-              ) : (
-                <Button
-                  text="Finalizar Cadastro"
-                  rightIcon={<GoCheck size={22} />}
-                  variant="green"
-                  type="submit"
-                  disabled={!formik.isValid}
-                />
-              )}
+              ))}
             </div>
-          </div>
-        </form>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="flex flex-col items-center gap-2">
+                {currentStep == 0 ? <Step0 formik={formik} /> : null}
+                {currentStep == 1 ? <Step1 formik={formik} /> : null}
+                {currentStep == 2 ? <Step2 formik={formik} /> : null}
+                <div className="w-full flex flex-row gap-4 items-center">
+                  {currentStep > 0 ? (
+                    <Button
+                      text="Voltar"
+                      leftIcon={<GoArrowLeft size={22} />}
+                      variant="purple"
+                      type="button"
+                      onClick={handlePreviousStep}
+                    />
+                  ) : null}
+
+                  {currentStep !== steps.length - 1 ? (
+                    <Button
+                      text="Próximo"
+                      rightIcon={<GoArrowRight size={22} />}
+                      variant="purple"
+                      type="submit"
+                      disabled={!formik.isValid}
+                    />
+                  ) : (
+                    <Button
+                      text="Finalizar Cadastro"
+                      rightIcon={<GoCheck size={22} />}
+                      variant="green"
+                      type="submit"
+                      disabled={!formik.isValid}
+                    />
+                  )}
+                </div>
+              </div>
+            </form>
+          </>
+        ) : (
+          <FinishedStep />
+        )}
       </div>
     </main>
   );
