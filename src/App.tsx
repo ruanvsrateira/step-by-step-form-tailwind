@@ -2,9 +2,11 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { bool, object, ref, string } from "yup";
 import { GoArrowLeft, GoArrowRight, GoCheck } from "react-icons/go";
-import { Input } from "./components/Input";
 import { Button } from "./Button";
 import { StepIndicator } from "./components/StepIndicator";
+import { Step0 } from "./sections/Step0";
+import { Step1 } from "./sections/Step1";
+import { Step2 } from "./sections/Step2";
 
 function App() {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -79,7 +81,7 @@ function App() {
         <div className="mb-10 flex justify-around gap-6">
           {steps.map((s) => (
             <StepIndicator
-              status={s.status}
+              status={s.status as "finalized" | "not-finalized"}
               currentStep={currentStep}
               step={s.step}
               title={s.title}
@@ -88,56 +90,9 @@ function App() {
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="flex flex-col items-center gap-2">
-            {currentStep == 0 ? (
-              <>
-                <Input
-                  type="input"
-                  name="email"
-                  error={formik.errors.email}
-                  onChange={formik.handleChange}
-                  placeholder="Digite seu melhor e-mail"
-                  value={formik.values.email}
-                />
-                <Input
-                  type="input"
-                  name="confirmEmail"
-                  error={formik.errors.confirmEmail}
-                  onChange={formik.handleChange}
-                  placeholder="Confirme novamente seu e-mail"
-                  value={formik.values.confirmEmail}
-                />
-              </>
-            ) : null}
-            {currentStep == 1 ? (
-              <>
-                <Input
-                  type="input"
-                  name="password"
-                  error={formik.errors.password}
-                  onChange={formik.handleChange}
-                  placeholder="Digite uma boa senha"
-                  value={formik.values.password}
-                />
-                <Input
-                  type="input"
-                  name="confirmPassword"
-                  error={formik.errors.confirmPassword}
-                  onChange={formik.handleChange}
-                  placeholder="Confirme novamente sua senha"
-                  value={formik.values.confirmPassword}
-                />
-              </>
-            ) : null}
-            {currentStep == 2 ? (
-              <Input
-                type="checkbox"
-                name="acceptTerms"
-                error={formik.errors.acceptTerms}
-                onChange={formik.handleChange}
-                placeholder="Eu confirmo que li e aceito os termos"
-                value={formik.values.confirmPassword}
-              />
-            ) : null}
+            {currentStep == 0 ? <Step0 formik={formik} /> : null}
+            {currentStep == 1 ? <Step1 formik={formik} /> : null}
+            {currentStep == 2 ? <Step2 formik={formik} /> : null}
             <div className="w-full flex flex-row gap-4 items-center">
               {currentStep > 0 ? (
                 <Button
