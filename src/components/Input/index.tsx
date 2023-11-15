@@ -17,7 +17,7 @@ export const Input = ({ error, ...props }: InputProps) => {
           <input {...props} checked={props.value as boolean} value={""} />
           <p className="text-gray-600">{props.placeholder}</p>
         </div>
-        {error && <span className="text-gray-600 italic">({error})</span>}
+        {error && <span className="text-red-500 ">{error}</span>}
       </div>
     );
   }
