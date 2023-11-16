@@ -15,7 +15,7 @@ import { step2ValidationSchema } from "./schemas/step2";
 import { FinishedStep } from "./sections/FinishedStep";
 
 function App() {
-  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const steps = [
     {
