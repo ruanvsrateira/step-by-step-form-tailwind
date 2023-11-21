@@ -72,6 +72,7 @@ function App() {
             <div className="mb-10 flex justify-around gap-6">
               {steps.map((s) => (
                 <StepIndicator
+                  status={s.step < currentStep ? "finished" : "not-finished"}
                   key={s.title}
                   currentStep={currentStep}
                   step={s.step}
